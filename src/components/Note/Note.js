@@ -7,22 +7,22 @@ class Note extends React.Component {
         super(props);
         this.onClick = this.onClick.bind(this);
         this.state = {
-            isEditing: 'false'
+            isEditing: false
         };
     }
 
     onClick() {
         this.setState({
-            isEditing: 'true'
+            isEditing: true
         });
     }
 
     render() {
         return (
             <div
-                contenteditable={this.state.isEditing}
-                spellcheck={this.state.isEditing}
-                tabindex={this.props.index}
+                contentEditable={this.state.isEditing}
+                spellCheck={this.state.isEditing}
+                tabIndex={this.props.index}
                 onClick={this.onClick}
                 className="note"
             >

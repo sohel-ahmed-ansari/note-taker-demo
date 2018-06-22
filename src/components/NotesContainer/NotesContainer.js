@@ -6,7 +6,7 @@ function NotesContainer(props) {
     return (
         <div className="notes-container">
             {props.notes.map((note, index) => (
-                <Note {...note} index={index}></Note>
+                <Note {...note} index={index} key={index}></Note>
             ))}
         </div>
     );
