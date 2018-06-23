@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import NotesContainer from './components/NotesContainer/NotesContainer'
+import uuid from 'uuid/v1'
 
 class App extends Component {
 
@@ -9,9 +10,20 @@ class App extends Component {
     super(props);
     this.state = {
       notes: [{
-        text: 'My first note'
+        content: 'My first note',
+        dataId: uuid()
       }, {
-        text: 'My second note'
+        content: 'My second note',
+        dataId: uuid()
+      }, {
+        content: 'My third note',
+        dataId: uuid()
+      }, {
+        content: 'My fourth note',
+        dataId: uuid()
+      }, {
+        content: 'My fifth note',
+        dataId: uuid()
       }]
     };
   }

@@ -4,9 +4,12 @@
   "private": true,
   "dependencies": {
     "react": "^16.4.0",
+    "react-contenteditable": "^2.1.0",
     "react-dom": "^16.4.0",
     "react-pose": "^2.1.2",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "sortablejs": "^1.7.0",
+    "uuid": "^3.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
