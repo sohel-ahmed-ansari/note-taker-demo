@@ -27,7 +27,7 @@ class NotesContainer extends React.Component {
         return (
             <div className="notes-container" ref={this.notesContainer}>
                 {this.props.notes.map((note, index) => (
-                    <Note {...note} key={note.dataId} dataId={note.dataId} ></Note>
+                    <Note {...note} key={note.dataId} dataId={note.dataId} updateNote={this.props.updateNote}></Note>
                 ))}
             </div>
         );
