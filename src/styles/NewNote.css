@@ -1,0 +1,50 @@
+.new-note {
+    width: 450px;
+    max-height: 500px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 2px #BBBBBB;
+    transition: box-shadow 0.2s;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    padding: 15px;
+    overflow: auto;
+    position: relative;
+}
+
+.new-note .new-note-content {
+    min-height: 25px;
+    outline: 0px transparent !important;
+}
+
+.new-note .note-placeholder {
+    color: #CCCCCC;
+    pointer-events: none;
+    position: absolute;
+    top:15px;
+    left:15px;
+}
+
+.new-note .buttons .button{
+    margin-left: 10px;
+    float: right;
+    border-radius: 3px;
+    color: rgba(0,0,0,.87);
+    font-size: 13px;
+    font-weight: bold;
+    padding: 5px 14px;
+    text-transform: uppercase;
+    background-color: #EEEEEE;
+    cursor: pointer;
+}
+
+.buttons.disabled{
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.new-note .buttons .button:hover{
+    background-color: #CCCCCC;
+}
+
+

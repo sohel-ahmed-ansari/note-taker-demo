@@ -1,0 +1,10 @@
+.app {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-notes-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}

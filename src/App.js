@@ -1,32 +1,18 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import NotesContainer from './components/NotesContainer/NotesContainer'
+import './styles/App.css';
+import NewNote from './components/NewNote'
+import NotesContainer from './components/NotesContainer'
 import uuid from 'uuid/v1'
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            notes: [{
-                content: 'My first note',
-                id: uuid()
-            }, {
-                content: 'My second note',
-                id: uuid()
-            }, {
-                content: 'My third note',
-                id: uuid()
-            }, {
-                content: 'My fourth note',
-                id: uuid()
-            }, {
-                content: 'My fifth note',
-                id: uuid()
-            }]
+            notes: []
         };
         this.updateNote = this.updateNote.bind(this);
         this.sortNotes = this.sortNotes.bind(this);
+        this.addNote = this.addNote.bind(this);
         window.app = this;
     }
 
@@ -43,13 +29,28 @@ class App extends Component {
         this.setState({ notes });
     }
 
+    addNote(content) {
+        const notes = this.state.notes;
+        notes.push({
+            content,
+            id: uuid()
+        });
+        this.setState({ notes });
+    }
+
     render() {
         return (
-            <NotesContainer 
-                notes={this.state.notes} 
-                updateNote={this.updateNote}
-                sortNotes={this.sortNotes}
-            ></NotesContainer>
+            <div className="app">
+                <div className="new-notes-container">
+                    <NewNote addNoteHandler={this.addNote}>
+                    </NewNote>
+                </div>
+                <NotesContainer
+                    notes={this.state.notes} 
+                    updateNoteHandler={this.updateNote}
+                    sortNotesHandler={this.sortNotes}
+                ></NotesContainer>
+            </div>
         );
     }
 }

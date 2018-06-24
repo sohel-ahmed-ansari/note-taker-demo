@@ -1,6 +1,6 @@
 import React from 'react';
-import './NotesContainer.css';
-import Note from '../Note/Note';
+import '../styles/NotesContainer.css';
+import Note from './Note';
 import Sortable from 'sortablejs';
 
 class NotesContainer extends React.Component {
@@ -8,7 +8,7 @@ class NotesContainer extends React.Component {
         super(props);
         this.notesContainer = React.createRef();
         this.onSort = this.onSort.bind(this);
-        this.sortNotes = props.sortNotes;
+        this.sortNotes = props.sortNotesHandler;
     }
 
     componentDidMount() {
@@ -28,7 +28,7 @@ class NotesContainer extends React.Component {
         return (
             <div className="notes-container" ref={this.notesContainer}>
                 {this.props.notes.map((note, index) => (
-                    <Note {...note} key={note.id} dataId={note.id} updateNote={this.props.updateNote}></Note>
+                    <Note {...note} key={note.id} dataId={note.id} updateNoteHandler={this.props.updateNoteHandler}></Note>
                 ))}
             </div>
         );

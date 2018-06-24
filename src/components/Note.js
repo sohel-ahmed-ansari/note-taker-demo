@@ -1,5 +1,5 @@
 import React from 'react';
-import './Note.css';
+import '../styles/Note.css';
 import ContentEditable from 'react-contenteditable'
 
 class Note extends React.Component {
@@ -14,7 +14,7 @@ class Note extends React.Component {
             content: props.content
         };
         this.noteRef = React.createRef();
-        this.updateNote = props.updateNote;
+        this.updateNote = props.updateNoteHandler;
     }
 
     onClick() {
