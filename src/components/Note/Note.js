@@ -48,13 +48,13 @@ class Note extends React.Component {
         this.setState({
             isEditing: false
         });
+        this.updateNote(this.props.dataId, this.state.content);
     }
 
     onChange(evt) {
         this.setState({
             content: evt.target.value
         });
-        this.updateNote(this.props.dataId, this.state.content);
     }
 
     render() {

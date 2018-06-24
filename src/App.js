@@ -10,33 +10,46 @@ class App extends Component {
         this.state = {
             notes: [{
                 content: 'My first note',
-                dataId: uuid()
+                id: uuid()
             }, {
                 content: 'My second note',
-                dataId: uuid()
+                id: uuid()
             }, {
                 content: 'My third note',
-                dataId: uuid()
+                id: uuid()
             }, {
                 content: 'My fourth note',
-                dataId: uuid()
+                id: uuid()
             }, {
                 content: 'My fifth note',
-                dataId: uuid()
+                id: uuid()
             }]
         };
         this.updateNote = this.updateNote.bind(this);
-        window.appState = this.state;
+        this.sortNotes = this.sortNotes.bind(this);
+        window.app = this;
     }
 
-    updateNote(dataId, content) {
-        const note = this.state.notes.find(((note) => note.dataId === dataId));
-        note.content = content;
+    sortNotes(sortIds) {
+        const notes = this.state.notes.slice();
+        notes.sort((a, b) => (sortIds.indexOf(a.id) - sortIds.indexOf(b.id)));
+        this.setState({ notes });
+    }
+
+    updateNote(id, content) {
+        const notes = this.state.notes.map((note) => {
+            return (note.id === id) ? { content, id } : note;
+        });
+        this.setState({ notes });
     }
 
     render() {
         return (
-            <NotesContainer notes={this.state.notes} updateNote={this.updateNote}></NotesContainer>
+            <NotesContainer 
+                notes={this.state.notes} 
+                updateNote={this.updateNote}
+                sortNotes={this.sortNotes}
+            ></NotesContainer>
         );
     }
 }

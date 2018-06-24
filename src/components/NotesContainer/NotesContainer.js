@@ -8,26 +8,27 @@ class NotesContainer extends React.Component {
         super(props);
         this.notesContainer = React.createRef();
         this.onSort = this.onSort.bind(this);
+        this.sortNotes = props.sortNotes;
     }
 
     componentDidMount() {
-        Sortable.create(this.notesContainer.current, {
-            animation: 150,
+        this.sortable = Sortable.create(this.notesContainer.current, {
+            animation: 250,
             onSort: this.onSort,
             draggable: '.note',
             ghostClass: 'is-dragging'
         });
     }
 
-    onSort(event) {
-        console.log(event)
+    onSort() {
+        this.sortNotes(this.sortable.toArray());
     }
 
     render() {
         return (
             <div className="notes-container" ref={this.notesContainer}>
                 {this.props.notes.map((note, index) => (
-                    <Note {...note} key={note.dataId} dataId={note.dataId} updateNote={this.props.updateNote}></Note>
+                    <Note {...note} key={note.id} dataId={note.id} updateNote={this.props.updateNote}></Note>
                 ))}
             </div>
         );
