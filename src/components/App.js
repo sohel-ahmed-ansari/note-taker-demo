@@ -1,7 +1,7 @@
 import React from 'react';
-import './styles/App.css';
-import NewNote from './components/NewNote'
-import NotesContainer from './components/NotesContainer'
+import '../styles/App.css';
+import NewNote from './NewNote'
+import NotesContainer from './NotesContainer'
 
 class App extends React.Component {
     render() {
