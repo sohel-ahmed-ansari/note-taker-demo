@@ -1,36 +1,29 @@
 import React from 'react';
-import ContentEditable from 'react-contenteditable'
-import '../styles/NewNote.css'
+import ContentEditable from 'react-contenteditable';
+import '../styles/NewNote.css';
+import { connect } from 'react-redux';
+import {updateNewNote, addNote} from '../actions';
 
-class Note extends React.Component {
+class NewNote extends React.Component {
 
     constructor(props) {
         super(props);
-        this.addNote = props.addNoteHandler;
+        this.updateNewNote = props.updateNewNote;
+        this.addNote = props.addNote;
         this.onChange = this.onChange.bind(this);
         this.onBlur = this.onBlur.bind(this);
         this.clearNote = this.clearNote.bind(this);
         this.onAddClick = this.onAddClick.bind(this);
-        this.state = {
-            content: '',
-            isEmpty: true
-        };
     }
 
     onChange(evt) {
-        const content = evt.target.value;
-        const isEmpty = content === '';
-        this.setState({
-            content,
-            isEmpty
-        });
+        this.updateNewNote(evt.target.value);
     }
 
     onBlur() {
-        const contentTrimmed = this.convertToText(this.state.content).trim();
-        const isEmpty = contentTrimmed === '';
-        //if trimmed text is empty, clear content and set isEmpty
-        if (isEmpty) {
+        const contentTrimmed = this.convertToText(this.props.content).trim();
+        //if trimmed text is empty, clear content so that isEmpty is set true
+        if (contentTrimmed === '') {
             this.clearNote();
         }
     }
@@ -51,29 +44,26 @@ class Note extends React.Component {
     }
 
     onAddClick() {
-        this.addNote(this.state.content);
+        this.addNote(this.props.content);
         this.clearNote();
     }
 
     clearNote() {
-        this.setState({
-            content: '', 
-            isEmpty: true
-        });
+        this.updateNewNote('');
     }
 
     render() {
         return (
             <div className="new-note">
                 <ContentEditable
-                    html={this.state.content}
+                    html={this.props.content}
                     onChange={this.onChange}
                     onBlur={this.onBlur}
                     spellCheck={true}
                     className="new-note-content"
                 ></ContentEditable>
-                { this.state.isEmpty ? <div className="note-placeholder">Take a note...</div> : null }
-                <div className={this.state.isEmpty ? 'buttons disabled' : 'buttons'}>
+                { this.props.isEmpty ? <div className="note-placeholder">Take a note...</div> : null }
+                <div className={this.props.isEmpty ? 'buttons disabled' : 'buttons'}>
                     <div className="button" onClick={this.clearNote}>CANCEL</div>
                     <div className="button" onClick={this.onAddClick}>ADD</div>
                 </div>
@@ -82,4 +72,17 @@ class Note extends React.Component {
     }
 }
 
-export default Note;
+const mapStateToProps = state => ({
+    content: state.newNote.content,
+    isEmpty: state.newNote.isEmpty
+});
+
+const mapDispatchToProps = dispatch => ({
+    updateNewNote: (content) => dispatch(updateNewNote(content)),
+    addNote: (content) => dispatch(addNote(content))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(NewNote);

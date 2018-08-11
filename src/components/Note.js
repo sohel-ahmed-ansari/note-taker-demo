@@ -1,29 +1,24 @@
 import React from 'react';
 import '../styles/Note.css';
-import ContentEditable from 'react-contenteditable'
+import ContentEditable from 'react-contenteditable';
 
 class Note extends React.Component {
 
     constructor(props) {
         super(props);
+        this.updateNote = props.updateNote;
+        this.setEditMode = props.setEditMode;
         this.onClick = this.onClick.bind(this);
         this.onBlur = this.onBlur.bind(this);
         this.onChange = this.onChange.bind(this);
-        this.state = {
-            isEditing: false,
-            content: props.content
-        };
         this.noteRef = React.createRef();
-        this.updateNote = props.updateNoteHandler;
     }
 
     onClick() {
-        if (this.state.isEditing) {
+        if (this.props.isEditing) {
             return;
         }
-        this.setState({
-            isEditing: true
-        });
+        this.setEditMode(this.props.id, true);
         setTimeout(() => {
             const el = this.noteRef.current.htmlEl;
             el.focus();
@@ -45,30 +40,25 @@ class Note extends React.Component {
     }
 
     onBlur() {
-        this.setState({
-            isEditing: false
-        });
-        this.updateNote(this.props.dataId, this.state.content);
+        this.setEditMode(this.props.id, false);
     }
 
     onChange(evt) {
-        this.setState({
-            content: evt.target.value
-        });
+        this.updateNote(this.props.id, evt.target.value);
     }
 
     render() {
         return (
             <ContentEditable
                 ref={this.noteRef}
-                html={this.state.content}
-                disabled={!this.state.isEditing}
+                html={this.props.content}
+                disabled={!this.props.isEditing}
                 onChange={this.onChange}
-                spellCheck={this.state.isEditing}
+                spellCheck={this.props.isEditing}
                 onClick={this.onClick}
                 onBlur={this.onBlur}
                 className="note"
-                data-id={this.props.dataId}
+                data-id={this.props.id}
             ></ContentEditable>
         );
     }
